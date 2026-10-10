@@ -6,6 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="붓돌이 베트남어">
 <title>붓돌이 베트남어 모험</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gamja+Flower&family=Hi+Melody&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:#fff;color:#222;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;display:flex;justify-content:center}
@@ -56,6 +58,67 @@ input.txt{width:100%;border:2.5px solid #222;border-radius:14px;padding:14px;fon
 .seg button.on{background:#ffe27a}
 table{width:100%;border-collapse:collapse;font-size:14px}td{border-bottom:1px solid #eee;padding:7px 4px}td:first-child{color:#aaa;width:28px}
 .center{text-align:center}
+button,input{font-family:inherit}
+.btn.hasic{display:flex;align-items:center;gap:12px}
+.btn .ic{width:46px;height:46px;flex:none;display:block}
+.btn .tx{flex:1;min-width:0}
+.row .btn.hasic{justify-content:center;padding:10px}
+.row .btn .ic{width:32px;height:32px}
+.k-adv,.btn.y{--cc:#ffd84a;--dd:#d9a400}.k-card{--cc:#ff8fbf;--dd:#d4528c}.k-time{--cc:#5fe3a6;--dd:#2aa874}.k-fall{--cc:#66bbff;--dd:#2d82d4}
+.k-note{--cc:#b592ff;--dd:#7b52d8}.k-rank{--cc:#ffa85c;--dd:#dc6f25}.k-list{--cc:#7fd4ff;--dd:#3a9fd4}.k-set{--cc:#cdb6ff;--dd:#8f6fd8}
+body[data-skin] .opt.ok{background:#b8f0c8!important}body[data-skin] .opt.bad{background:#ffc4c4!important}
+.skins{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:8px 0 16px}
+.skins button{border:2.5px solid #222;border-radius:14px;background:#fff;padding:10px 6px;font-size:16px;font-weight:700;cursor:pointer;color:#222}
+.skins button.on{background:#ffe27a;border-color:#222}.skins i{display:block;height:14px;border-radius:7px;margin-bottom:6px}
+
+/* ===== 이미지 스킨 홈 ===== */
+.hero{display:block;width:100%;margin:0 auto}
+.imgbtn{display:block;position:relative;width:var(--bw,95%);margin:2px auto;padding:0;border:0;background:none;cursor:pointer;transition:transform .08s,filter .08s}
+.imgbtn img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none;user-select:none}
+.imgbtn:active{transform:translateY(3px) scale(.985);filter:brightness(.94)}
+.imgrow{display:flex;justify-content:center;gap:2%;width:var(--rw,90%);margin:6px auto 0}
+.imgrow .imgbtn{width:auto;margin:0}
+.imgbtn .badge{position:absolute;top:4%;right:5%;min-width:26px;height:26px;padding:0 6px;border-radius:13px;background:#ff4d6d;color:#fff;font:700 15px/26px -apple-system,sans-serif;text-align:center;box-shadow:0 2px 0 rgba(0,0,0,.25);border:2px solid #fff}
+
+/* ===== 스킨 A · 젤리 캔디 ===== */
+body[data-skin=jelly]{font-family:'Jua',-apple-system,"Apple SD Gothic Neo",sans-serif;background:radial-gradient(circle at 8% 4%,#fff2f8 0,transparent 30%),radial-gradient(circle at 96% 14%,#f1f8ff 0,transparent 32%),#fffdfb}
+body[data-skin=jelly] h1{background:linear-gradient(90deg,#ff5fa2,#ffa534,#2fc77a,#3aa0ff,#9a6bff);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:31px;filter:drop-shadow(0 3px 0 rgba(0,0,0,.12))}
+body[data-skin=jelly] .btn{--c:var(--cc,#ffe9b0);--d:var(--dd,#e0b45a);border:0;border-radius:999px;color:#4a3320;padding:13px 22px;margin:12px 0 17px;font-weight:400;font-size:21px;background:linear-gradient(180deg,rgba(255,255,255,.62) 0,rgba(255,255,255,0) 52%),var(--c);box-shadow:0 6px 0 var(--d),0 12px 14px rgba(0,0,0,.14),inset 0 -3px 0 rgba(0,0,0,.05);text-shadow:0 1px 0 rgba(255,255,255,.7)}
+body[data-skin=jelly] .btn small{color:rgba(74,51,32,.62);font-size:13px;text-shadow:none}
+body[data-skin=jelly] .btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--d),0 4px 6px rgba(0,0,0,.12)}
+body[data-skin=jelly] .opt{border:0;border-radius:20px;font-weight:400;font-size:20px;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0) 55%),#e9f3ff;box-shadow:0 5px 0 #bcd0ea,0 9px 10px rgba(0,0,0,.1)}
+body[data-skin=jelly] .opt:active{transform:translateY(4px);box-shadow:0 1px 0 #bcd0ea}
+body[data-skin=jelly] .card{border:0;border-radius:26px;background:#fffbe6;box-shadow:0 6px 0 #f0d9a0,0 10px 14px rgba(0,0,0,.1)}
+body[data-skin=jelly] .seg button{border:0;border-radius:999px;font-weight:400;font-size:17px;box-shadow:0 4px 0 #cfd6e4}
+body[data-skin=jelly] .seg button.on{background:#ffd84a;box-shadow:0 4px 0 #d9a400}
+body[data-skin=jelly] .mc{border:0;box-shadow:0 4px 0 #d9a400;border-radius:16px;font-weight:400;font-size:17px}
+body[data-skin=jelly] .hp{border:0;box-shadow:inset 0 0 0 3px #fff,0 3px 0 #e0d0d0;background:#ffe0e0;height:14px}
+
+/* ===== 스킨 B · 스케치북 ===== */
+body[data-skin=sketch]{font-family:'Gamja Flower',-apple-system,"Apple SD Gothic Neo",sans-serif;background-color:#fbf5e3;background-image:linear-gradient(#e6dcc0 1px,transparent 1px),linear-gradient(90deg,#e6dcc0 1px,transparent 1px);background-size:24px 24px}
+body[data-skin=sketch] h1{font-size:34px;font-weight:400;display:table;margin:8px auto 4px;padding:0 10px;color:#25255a;background:linear-gradient(transparent 52%,#ffe45c 52% 92%,transparent 92%)}
+body[data-skin=sketch] .btn{--c:var(--cc,#fff0b8);border:4px solid #25255a;border-radius:20px 26px 18px 28px/26px 18px 28px 20px;color:#25255a;font-size:24px;font-weight:400;padding:12px 18px;margin:10px 0 15px;background:repeating-linear-gradient(118deg,rgba(255,255,255,.24) 0 3px,transparent 3px 8px),var(--c);box-shadow:3px 6px 0 rgba(37,37,90,.35)}
+body[data-skin=sketch] .btn small{color:#46467a;font-size:16px}
+body[data-skin=sketch] .btn:active{transform:translate(3px,5px);box-shadow:0 1px 0 rgba(37,37,90,.35)}
+body[data-skin=sketch] .opt{border:3px solid #25255a;border-radius:16px 22px 14px 24px/22px 14px 24px 16px;background:#fff;color:#25255a;font-weight:400;font-size:22px;box-shadow:3px 5px 0 rgba(37,37,90,.3)}
+body[data-skin=sketch] .opt:active{transform:translate(3px,4px);box-shadow:0 1px 0 rgba(37,37,90,.3)}
+body[data-skin=sketch] .card{border:4px solid #25255a;border-radius:22px 28px 20px 30px/28px 20px 30px 22px;background:#fffdf0;box-shadow:3px 6px 0 rgba(37,37,90,.25)}
+body[data-skin=sketch] .seg button{border:3px solid #25255a;border-radius:14px 18px 12px 18px;font-weight:400;font-size:18px;color:#25255a}
+body[data-skin=sketch] .seg button.on{background:#ffe45c}
+body[data-skin=sketch] .mc{border:3px solid #25255a;border-radius:14px 18px 12px 18px;font-weight:400;font-size:18px;box-shadow:2px 4px 0 rgba(37,37,90,.3)}
+
+/* ===== 스킨 C · 미술관 ===== */
+body[data-skin=museum]{font-family:'Hi Melody',-apple-system,"Apple SD Gothic Neo",sans-serif;background:radial-gradient(circle at 8% 12%,#fbe6c8 0,transparent 40%),radial-gradient(circle at 92% 38%,#e3ecf8 0,transparent 42%),radial-gradient(circle at 18% 92%,#e9f1d8 0,transparent 40%),#f8f0de}
+body[data-skin=museum] h1{color:#5b3a16;font-size:34px;font-weight:400;text-shadow:0 2px 0 rgba(255,255,255,.75)}
+body[data-skin=museum] .btn{--c:var(--cc,#fff0c8);border:7px double #b98a14;border-radius:16px;color:#4a2f10;font-size:24px;font-weight:400;padding:9px 18px;margin:10px 0 15px;background:var(--c);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 45%,#fff) 0,color-mix(in srgb,var(--c) 82%,#fff) 100%);box-shadow:0 5px 0 #8a6510,0 9px 12px rgba(80,50,0,.18),inset 0 0 0 2px #f2d56b}
+body[data-skin=museum] .btn small{color:#6b4a22;font-size:15px}
+body[data-skin=museum] .btn:active{transform:translateY(4px);box-shadow:0 1px 0 #8a6510,inset 0 0 0 2px #f2d56b}
+body[data-skin=museum] .opt{border:5px double #b98a14;border-radius:14px;background:#fffaf0;color:#4a2f10;font-weight:400;font-size:22px;box-shadow:0 4px 0 #8a6510,inset 0 0 0 2px #f2d56b}
+body[data-skin=museum] .opt:active{transform:translateY(3px);box-shadow:0 1px 0 #8a6510}
+body[data-skin=museum] .card{border:6px double #b98a14;border-radius:12px;background:#fffaf0;box-shadow:0 5px 0 #8a6510,inset 0 0 0 2px #f2d56b}
+body[data-skin=museum] .seg button{border:4px double #b98a14;border-radius:12px;font-weight:400;font-size:19px;color:#4a2f10;background:#fffaf0}
+body[data-skin=museum] .seg button.on{background:#ffe9a0}
+body[data-skin=museum] .mc{border:4px double #b98a14;border-radius:12px;font-weight:400;font-size:18px}
 </style>
 </head>
 <body><div id="app"></div>
@@ -67,11 +130,13 @@ const store = {
   get(k, d){ try{ const v = JSON.parse(localStorage.getItem('vg_'+k)); return v==null?d:v; }catch(e){ return d; } },
   set(k, v){ try{ localStorage.setItem('vg_'+k, JSON.stringify(v)); }catch(e){} }
 };
-let settings = Object.assign({dir:'mix', input:'choice', speak:true}, store.get('settings', {}));
-let notes = store.get('notes', {});
-let stars = store.get('stars', {});
-let best = store.get('best', 0);
-let tbest = store.get('tbest', {});
+let settings = Object.assign({dir:'mix', input:'choice', speak:true, skin:'sketch'}, store.get('settings', {}));
+let me = store.get('me', null);
+let users = store.get('users', []);
+const U = { get:(k,d)=>store.get('u_'+me+'_'+k, d), set:(k,v)=>store.set('u_'+me+'_'+k, v) };
+let notes = {}, stars = {}, best = 0, tbest = {}, tmiss = {}, card = null, bestat = 0;
+function loadUser(){ notes = U.get('notes',{}); stars = U.get('stars',{}); best = U.get('best',0); tbest = U.get('tbest',{}); tmiss = U.get('tmiss',{}); card = U.get('card',null); bestat = U.get('bestat',0); }
+const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const STAGE = 10, STAGES = Math.ceil(W.length / STAGE);
 const TYPABLE = /^[\p{Script=Latin}\s]+$/u;
 const shuffle = a => { for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
@@ -94,22 +159,54 @@ function speak(t){
 }
 function screen(html){ cancelAnimationFrame(raf); app.innerHTML = html; window.scrollTo(0,0); }
 const noteCount = () => Object.keys(notes).length;
-function addNote(it){ notes[it.n] = {streak:0}; store.set('notes', notes); }
-function noteOk(it){ const o = notes[it.n]; if(!o) return; o.streak++; if(o.streak>=2) delete notes[it.n]; store.set('notes', notes); }
+function addNote(it){ notes[it.n] = {streak:0}; U.set('notes', notes); }
+function noteOk(it){ const o = notes[it.n]; if(!o) return; o.streak++; if(o.streak>=2) delete notes[it.n]; U.set('notes', notes); }
 
+const S3 = 'stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  map:`<path d="M6 12l12-4 12 4 12-4v28l-12 4-12-4-12 4z" fill="#ffe9a8" ${S3}/><path d="M18 8v28M30 12v28" stroke="#2b2b2b" stroke-width="2" fill="none"/><path d="M11 31q6-10 12-2t12-13" fill="none" stroke="#e8443a" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/><path d="M33 12l5 5m0-5l-5 5" stroke="#e8443a" stroke-width="3" stroke-linecap="round"/>`,
+  cards:`<rect x="4" y="10" width="21" height="29" rx="4" transform="rotate(-12 14 24)" fill="#fff" ${S3}/><rect x="22" y="9" width="21" height="29" rx="4" transform="rotate(10 32 23)" fill="#fff" ${S3}/><path d="M14 17l2 4.2 4.6.6-3.3 3.2.8 4.6-4.1-2.2-4.1 2.2.8-4.6-3.3-3.2 4.6-.6z" fill="#4a90e2" stroke="#2b2b2b" stroke-width="1.5" stroke-linejoin="round"/><path d="M33 33c-6-4-8-8-5-11 2-2 4-1 5 1 1-2 3-3 5-1 3 3 1 7-5 11z" fill="#ff4d6d" ${S3}/>`,
+  clock:`<circle cx="24" cy="27" r="15" fill="#fff" ${S3}/><path d="M24 27V17M24 27l7 4" fill="none" ${S3}/><rect x="21" y="6" width="6" height="5" rx="1.5" fill="#4a90e2" ${S3}/><path d="M37 12l3-3" ${S3}/>`,
+  comet:`<path d="M7 42Q16 31 25 25" fill="none" stroke="#ff8a3d" stroke-width="7" stroke-linecap="round" opacity=".9"/><path d="M11 29Q21 25 27 20" fill="none" stroke="#ffc14d" stroke-width="5" stroke-linecap="round"/><path d="M33 8l3.4 7.2 7.6 1-5.6 5.4 1.5 7.6L33 25.5l-6.9 3.7 1.5-7.6-5.6-5.4 7.6-1z" fill="#ffd84a" ${S3}/>`,
+  note:`<rect x="10" y="6" width="28" height="36" rx="4" fill="#fff" ${S3}/><path d="M16 6v36" fill="none" ${S3}/><path d="M5 12h6M5 20h6M5 28h6M5 36h6" ${S3}/><path d="M22 24l4 5 9-11" fill="none" stroke="#e8443a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`,
+  trophy:`<path d="M14 7h20v11a10 10 0 0 1-20 0z" fill="#ffd84a" ${S3}/><path d="M14 10H8q0 9 7 10M34 10h6q0 9-7 10" fill="none" ${S3}/><path d="M24 28v7M16 42h16l-2-7H18z" fill="#ffb13d" ${S3}/>`,
+  book:`<path d="M5 12q9-3 19 2 10-5 19-2v27q-9-3-19 2-10-5-19-2z" fill="#fff" ${S3}/><path d="M24 14v26" fill="none" ${S3}/>`,
+  gear:`<circle cx="24" cy="24" r="11" fill="#c3a8ff" ${S3}/><circle cx="24" cy="24" r="16" fill="none" stroke="#2b2b2b" stroke-width="5" stroke-dasharray="5.4 6.2"/><circle cx="24" cy="24" r="4.5" fill="#fff" ${S3}/>`
+};
+const ico = n => `<svg class="ic" viewBox="0 0 48 48" aria-hidden="true">${ICONS[n]}</svg>`;
+const mb = (cls, act, ic, title, sub='') => `<button class="btn hasic ${cls}" data-act="${act}">${ico(ic)}<span class="tx">${title}${sub?`<small>${sub}</small>`:''}</span></button>`;
+const SKINS = [['basic','기본','#ffe27a'],['jelly','젤리 캔디','linear-gradient(90deg,#ff8fbf,#ffd84a,#5fe3a6,#66bbff)'],['sketch','스케치북','#fff0b8'],['museum','미술관','#e8c46a']];
+function applySkin(){ document.body.dataset.skin = settings.skin==='basic' ? '' : settings.skin; }
+const SKIN_LAYOUT = {
+  jelly:{bw:95.5, rw:96.6, rf:[182,181]},
+  sketch:{bw:91, rw:73.5, rf:[148,126]},
+  museum:{bw:88.4, rw:75.4, rf:[160,140]}
+};
+function imgHome(){
+  const L = SKIN_LAYOUT[settings.skin], d = 'assets/skin/'+settings.skin, n = noteCount();
+  const ib = (act, name, label, extra='', style='') => `<button class="imgbtn" data-act="${act}" aria-label="${label}" style="${style}"><img src="${d}/${name}.webp" alt="${label}" draggable="false">${extra}</button>`;
+  screen(`<div style="--bw:${L.bw}%;--rw:${L.rw}%"><img class="hero" src="${d}/header.webp" alt="붓돌이 베트남어 모험" draggable="false">
+  <div class="sub" style="margin:6px 0 10px">👤 <b>${esc(me)}</b> 님 · 단어 ${W.length}개 · <a href="#" data-act="switch" style="color:#888">이름 바꾸기</a></div>
+  ${ib('adv','adv','모험 모드')}${ib('matchsel','card','카드 짝 맞추기')}${ib('timesel','time','타임어택')}${ib('fallsel','fall','단어 낙하')}
+  ${ib('notesgo','note','오답 노트 '+n+'개', n?`<span class="badge">${n}</span>`:'')}${ib('rank','rank','랭킹')}
+  <div class="imgrow">${ib('list','list','단어장','','flex:'+L.rf[0]+' 1 0')}${ib('settings','set','설정','','flex:'+L.rf[1]+' 1 0')}</div></div>`);
+}
 function home(){
+  if(settings.skin && settings.skin!=='basic' && SKIN_LAYOUT[settings.skin]) return imgHome();
   screen(`<div style="display:flex;justify-content:center;align-items:flex-end;gap:10px"><img class="ch" style="width:112px" src="assets/butdol-stand.webp" alt="붓돌이"><img class="ch" style="width:84px" src="assets/eden-stand.webp" alt="이든"></div>
-  <h1>붓돌이 베트남어 모험</h1><div class="sub">7학년 2학기 단어 ${W.length}개</div>
-  <button class="btn y" data-act="adv">🗺 모험 모드<small>10단어씩 7스테이지, 몬스터를 물리치자</small></button>
-  <button class="btn" data-act="matchsel">🃏 카드 짝 맞추기<small>눈에 익히는 연습</small></button>
-  <button class="btn" data-act="timesel">⏱ 타임어택<small>30초·1분 동안 몇 개나 맞힐까?</small></button>
-  <button class="btn" data-act="fallsel">☄ 단어 낙하<small>떨어지기 전에 뜻을 골라라</small></button>
-  <button class="btn" data-act="notesgo">📓 오답 노트 (${noteCount()}개)<small>틀린 단어만 모아 두 번 연속 맞히면 졸업</small></button>
-  <div class="row"><button class="btn" data-act="list">📖 단어장</button><button class="btn" data-act="settings">⚙ 설정</button></div>`);
+  <h1>붓돌이 베트남어 모험</h1><div class="sub">👤 <b>${esc(me)}</b> 님 · 단어 ${W.length}개 · <a href="#" data-act="switch" style="color:#888">이름 바꾸기</a></div>
+  ${mb('k-adv','adv','map','모험 모드','10단어씩 7스테이지, 몬스터를 물리치자')}
+  ${mb('k-card','matchsel','cards','카드 짝 맞추기','눈에 익히는 연습')}
+  ${mb('k-time','timesel','clock','타임어택','30초·1분 동안 몇 개나 맞힐까?')}
+  ${mb('k-fall','fallsel','comet','단어 낙하','떨어지기 전에 뜻을 골라라')}
+  ${mb('k-note','notesgo','note','오답 노트 ('+noteCount()+'개)','틀린 단어만 모아 두 번 연속 맞히면 졸업')}
+  ${mb('k-rank','rank','trophy','랭킹','친구들과 기록을 비교해 보자')}
+  <div class="row">${mb('k-list','list','book','단어장')}${mb('k-set','settings','gear','설정')}</div>`);
 }
 function settingsScreen(){
   const seg = (key, arr) => `<div class="seg">${arr.map(([v,l])=>`<button class="${settings[key]===v?'on':''}" data-act="set" data-k="${key}" data-v="${v}">${l}</button>`).join('')}</div>`;
   screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>설정</b><span></span></div>
+  <b>스킨 (꾸미기)</b><div class="sub" style="text-align:left;margin:0">홈 화면의 그림과 버튼까지 함께 바뀌어요.</div><div class="skins">${SKINS.map(([v,l,c])=>`<button class="${settings.skin===v?'on':''}" data-act="set" data-k="skin" data-v="${v}"><i style="background:${c}"></i>${l}</button>`).join('')}</div>
   <b>문제 방향</b>${seg('dir',[['vk','베트남어→뜻'],['kv','뜻→베트남어'],['mix','섞기']])}
   <b>답하는 방식</b>${seg('input',[['choice','보기 고르기'],['type','직접 입력']])}
   <div class="sub" style="text-align:left">직접 입력은 '뜻→베트남어' 문제에서만 적용돼요. 성조를 빼먹으면 정답으로 인정하되 알려줘요.</div>
@@ -181,7 +278,7 @@ function resolve(ok, msg){
 }
 function endQuiz(win){
   const s = !win ? 0 : Q.miss===0 ? 3 : Q.miss<=2 ? 2 : 1;
-  if(Q.stage!=null && win){ stars[Q.stage] = Math.max(stars[Q.stage]||0, s); store.set('stars', stars); }
+  if(Q.stage!=null && win){ stars[Q.stage] = Math.max(stars[Q.stage]||0, s); U.set('stars', stars); }
   const star = win && !Q.note ? `<div class="stars" style="font-size:34px">${'★'.repeat(s)}${'☆'.repeat(3-s)}</div>` : '';
   const nextBtn = (win && Q.stage!=null && Q.stage+1<STAGES) ? `<button class="btn y" data-act="stage" data-i="${Q.stage+1}" style="text-align:center">다음 스테이지 ▶</button>` : '';
   const again = Q.stage!=null ? `<button class="btn" data-act="stage" data-i="${Q.stage}" style="text-align:center">다시 도전</button>` : '';
@@ -197,10 +294,21 @@ function startMatch(si){
   const pool = si==='all' ? W : W.slice(si*STAGE, si*STAGE+STAGE);
   const pick = shuffle(pool.slice()).slice(0,6);
   const cards = shuffle(pick.flatMap(w=>[{id:w.n,t:w.vi,k:'v'},{id:w.n,t:w.ko,k:'k'}]));
-  M = {cards, open:[], found:0, moves:0, lock:false, si};
+  M = {cards, open:[], found:0, moves:0, lock:false, si, rec:si==='all', t0:performance.now()};
   screen(`<div class="top"><button class="ghost" data-act="matchsel">←</button><b>카드 짝 맞추기</b><span id="mv">0번</span></div>
   <div class="sub">베트남어 카드와 뜻 카드를 짝지으세요</div>
   <div class="grid">${cards.map((c,i)=>`<div class="mc" data-act="flip" data-i="${i}" id="c${i}">?</div>`).join('')}</div>`);
+}
+function matchDone(){
+  const sec = Math.round((performance.now()-M.t0)/100)/10;
+  let msg;
+  if(M.rec){
+    const better = !card || M.moves<card.moves || (M.moves===card.moves && sec<card.time);
+    if(better){ card = {moves:M.moves, time:sec}; U.set('card', card); }
+    msg = `${better?'★ 새 기록! ★<br>':''}내 최고 ${card.moves}번 · ${card.time}초`;
+  } else msg = '연습 범위라 랭킹에는 기록되지 않아요<br>(전체 랜덤만 기록돼요)';
+  screen(`<div class="center" style="padding-top:20px">${duo('h')}<h1>모두 맞혔어요!</h1><div class="sub">${M.moves}번 · ${sec}초 만에 성공<br>${msg}</div></div>
+    <button class="btn y" data-act="match" data-i="${M.si}" style="text-align:center">한 번 더</button><button class="btn" data-act="matchsel" style="text-align:center">다른 범위</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
 }
 function flip(i){
   if(M.lock) return; const c = M.cards[i], el = $('#c'+i);
@@ -211,8 +319,7 @@ function flip(i){
     M.moves++; $('#mv').textContent = M.moves+'번';
     const [a,b] = M.open.map(x=>M.cards[x]); const ea = $('#c'+M.open[0]), eb = $('#c'+M.open[1]);
     if(a.id===b.id && a.k!==b.k){ ea.className = eb.className = 'mc done'; M.found++; M.open = [];
-      if(M.found===6) setTimeout(()=>screen(`<div class="center" style="padding-top:20px">${duo('h')}<h1>모두 맞혔어요!</h1><div class="sub">${M.moves}번 만에 성공</div></div>
-        <button class="btn y" data-act="match" data-i="${M.si}" style="text-align:center">한 번 더</button><button class="btn" data-act="matchsel" style="text-align:center">다른 범위</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`), 500);
+      if(M.found===6) setTimeout(matchDone, 500);
     } else { M.lock = true; ea.classList.add('no'); eb.classList.add('no');
       setTimeout(()=>{ for(const e of [ea,eb]){ e.className='mc'; e.textContent='?'; } M.open=[]; M.lock=false; }, 800); }
   }
@@ -220,8 +327,8 @@ function flip(i){
 
 /* ---------- 단어 낙하 ---------- */
 let F = null;
-function startFall(pool){
-  F = {pool, score:0, lives:3, last:-1, over:false};
+function startFall(pool, rec){
+  F = {pool, rec, score:0, lives:3, last:-1, over:false};
   screen(`<div class="top"><button class="ghost" data-act="fallsel">←</button><b>단어 낙하</b><span class="hearts" id="fl"></span></div>
   <div class="sub" id="fs"></div><div class="fall"><div class="w" id="fw"></div><div class="ground"></div></div><div class="opts" id="fo"></div>`);
   nextFall();
@@ -244,12 +351,12 @@ function nextFall(){
 }
 function fallResult(ok, timeout){
   if(F.locked) return; F.locked = true; cancelAnimationFrame(raf);
-  if(ok){ F.score++; if(F.score>best){ best = F.score; store.set('best', best); } $('#fw').style.color = '#1c8a45'; }
+  if(ok){ F.score++; if(F.rec && F.score>best){ best = F.score; bestat = Date.now(); U.set('best', best); U.set('bestat', bestat); } $('#fw').style.color = '#1c8a45'; }
   else { F.lives--; addNote(F.cur); $('#fw').style.color = '#d33'; $('#fw').innerHTML = `${F.cur.vi}<small>${F.cur.ko}</small>`; }
   setTimeout(nextFall, ok?400:1300);
 }
 function endFall(){
-  screen(`<div class="center" style="padding-top:20px">${duo(F.score>=10?'h':'s')}<h1>${F.score}점!</h1><div class="sub">최고 기록 ${best}점 · 오답 노트 ${noteCount()}개</div></div>
+  screen(`<div class="center" style="padding-top:20px">${duo(F.score>=10?'h':'s')}<h1>${F.score}점!</h1><div class="sub">최고 기록 ${best}점 · 오답 노트 ${noteCount()}개${F.rec?'':'<br>연습 범위라 랭킹에는 기록되지 않아요'}</div></div>
   <button class="btn y" data-act="fallsel" style="text-align:center">다시 하기</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
 }
 
@@ -292,18 +399,80 @@ function tpick(i){
 function endTime(){
   T.over = true; cancelAnimationFrame(raf);
   const prev = tbest[T.sec] || 0, isNew = T.ok > prev;
-  if(isNew){ tbest[T.sec] = T.ok; store.set('tbest', tbest); }
+  if(isNew || (T.ok===prev && T.ok>0 && T.miss<(tmiss[T.sec]??999))){ tbest[T.sec] = T.ok; tmiss[T.sec] = T.miss; U.set('tbest', tbest); U.set('tmiss', tmiss); }
+  const acc = T.ok+T.miss ? Math.round(T.ok/(T.ok+T.miss)*100) : 0;
   screen(`<div class="center" style="padding-top:20px">${duo(T.ok>=10?'h':'n')}
   <h1>${T.ok}개 맞혔어요!</h1>${isNew&&T.ok>0?'<div class="stars" style="font-size:22px">★ 새 기록! ★</div>':''}
-  <div class="sub">${T.sec===60?'1분':T.sec+'초'} 최고 기록 ${tbest[T.sec]||0}개 · 틀린 문제 ${T.miss}개${T.miss?' (오답 노트에 담았어요)':''}</div></div>
+  <div class="sub">${T.sec===60?'1분':T.sec+'초'} 최고 기록 ${tbest[T.sec]||0}개 · 정확도 ${acc}% (틀린 ${T.miss}개)${T.miss?' (오답 노트에 담았어요)':''}</div></div>
   <button class="btn y" data-act="tstart" data-s="${T.sec}" style="text-align:center">다시 도전</button>
   <button class="btn" data-act="timesel" style="text-align:center">시간 다시 고르기</button>
   <button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
 }
 
+/* ---------- 이름 · 랭킹 ---------- */
+function nameScreen(){
+  const list = users.length ? `<div class="sub" style="margin-top:18px">이미 이름이 있어요? 눌러서 고르세요</div><div class="stages">${users.map(n=>`<button class="btn" data-act="pickuser" data-n="${esc(n)}" style="text-align:center;margin:0">${esc(n)}</button>`).join('')}</div>` : '';
+  screen(`${duo('h',110)}<h1>이름을 알려 주세요</h1><div class="sub">이 이름으로 기록하고 랭킹에 올라가요</div>
+  <input class="txt" id="nm" maxlength="10" placeholder="이름 (최대 10글자)" autocomplete="off" value="${me&&users.includes(me)?esc(me):''}">
+  <button class="btn y" data-act="namego" style="text-align:center;margin-top:12px">시작하기</button>${list}`);
+  const nm = $('#nm'); nm.addEventListener('keydown', e=>{ if(e.key==='Enter') acts.namego(); });
+}
+function loginAs(n){
+  const first = users.length===0;
+  me = n; store.set('me', me);
+  if(!users.includes(n)){ users.push(n); store.set('users', users);
+    if(first){ for(const k of ['notes','stars','best','tbest','tmiss','card','bestat']){ const v = store.get(k, null); if(v!=null) U.set(k, v); } } }
+  loadUser(); home();
+}
+const sum = o => Object.values(o).reduce((a,b)=>a+b,0);
+const udata = n => ({tbest:store.get('u_'+n+'_tbest',{}), tmiss:store.get('u_'+n+'_tmiss',{}), best:store.get('u_'+n+'_best',0), bestat:store.get('u_'+n+'_bestat',0), stars:store.get('u_'+n+'_stars',{}), card:store.get('u_'+n+'_card',null)});
+const timeKey = s => u => { const o = u.tbest[s]||0; return o>0 ? [-o, u.tmiss[s]??999] : null; };
+const RANKS = {
+  all:{label:'종합', desc:'종목별 1등 3점 · 2등 2점 · 3등 1점을 더한 점수예요. 동점이면 1등이 많은 쪽이 위!'},
+  adv:{label:'모험', desc:'별(★) 합계 · 동점이면 클리어한 스테이지가 많은 쪽', key:u=>{ const v=Object.values(u.stars), s=v.reduce((a,b)=>a+b,0); return s>0 ? [-s, -v.filter(x=>x>0).length] : null; }, show:u=>sum(u.stars)+'★'},
+  card:{label:'카드', desc:'시도 횟수가 적을수록 · 동점이면 시간이 짧은 쪽 (전체 랜덤만)', key:u=>u.card?[u.card.moves,u.card.time]:null, show:u=>u.card.moves+'번 · '+u.card.time+'초'},
+  t30:{label:'30초', desc:'맞힌 개수 · 동점이면 틀린 문제가 적은 쪽', key:timeKey(30), show:u=>u.tbest[30]+'개'},
+  t60:{label:'1분', desc:'맞힌 개수 · 동점이면 틀린 문제가 적은 쪽', key:timeKey(60), show:u=>u.tbest[60]+'개'},
+  fall:{label:'낙하', desc:'최고 점수 · 동점이면 먼저 달성한 쪽 (전체 랜덤만)', key:u=>u.best>0?[-u.best,u.bestat||0]:null, show:u=>u.best+'점'}
+};
+const cmpKey = (a,b) => { for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]-b[i]; } return 0; };
+function ranked(tab){
+  const R = RANKS[tab];
+  const all = users.map(n=>{ const u = udata(n); return {n, u, k:R.key(u)}; });
+  const has = all.filter(r=>r.k).sort((a,b)=>cmpKey(a.k,b.k) || a.n.localeCompare(b.n));
+  has.forEach((r,i)=>{ r.rank = i>0 && cmpKey(has[i-1].k,r.k)===0 ? has[i-1].rank : i+1; r.text = R.show(r.u); });
+  return has.concat(all.filter(r=>!r.k).map(r=>({n:r.n, rank:null, text:'-'})));
+}
+function overall(){
+  const pts = {}; users.forEach(n=>pts[n]={n,p:0,g:0,s:0,b:0});
+  for(const t of ['adv','card','t30','t60','fall']) ranked(t).forEach(r=>{ const o = pts[r.n];
+    if(r.rank===1){ o.p+=3; o.g++; } else if(r.rank===2){ o.p+=2; o.s++; } else if(r.rank===3){ o.p+=1; o.b++; } });
+  const arr = Object.values(pts).sort((a,b)=>b.p-a.p || b.g-a.g || a.n.localeCompare(b.n));
+  arr.forEach((r,i)=>{ r.rank = r.p===0 ? null : (i>0 && arr[i-1].p===r.p && arr[i-1].g===r.g ? arr[i-1].rank : i+1);
+    r.text = r.p>0 ? r.p+'점' : '-'; r.sub = r.p>0 ? `🥇${r.g} 🥈${r.s} 🥉${r.b}` : ''; });
+  return arr;
+}
+function rankScreen(tab='all'){
+  const R = RANKS[tab], medal = ['🥇','🥈','🥉'];
+  const rows = tab==='all' ? overall() : ranked(tab);
+  const list = rows.map((r,i)=>{ const mine = r.n===me;
+    return `<div style="display:flex;align-items:center;gap:10px;border:2.5px solid #222;border-radius:14px;padding:12px;margin:8px 0;background:${mine?'#fff3b0':'#fff'}">
+      <div style="width:36px;font-size:22px;text-align:center">${r.rank&&r.rank<=3?medal[r.rank-1]:(r.rank||'')}</div>
+      <div style="flex:1;font-weight:700;font-size:18px">${esc(r.n)}${mine?' (나)':''}${r.sub?`<div style="font-weight:400;font-size:13px;color:#888">${r.sub}</div>`:''}</div>
+      <div style="font-weight:800;font-size:19px">${r.text}</div></div>`; }).join('');
+  screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>🏆 랭킹</b><span></span></div>
+  <div class="seg" style="flex-wrap:wrap">${Object.entries(RANKS).map(([k,v])=>`<button style="flex:1 1 28%" class="${k===tab?'on':''}" data-act="rank" data-t="${k}">${v.label}</button>`).join('')}</div>
+  <div class="sub" style="margin:0 0 4px">${R.desc}</div>${list}
+  <div class="sub" style="margin-top:12px">이 기기에서 함께 한 친구들의 기록이에요.<br>같은 이름으로 다시 하면 기록이 이어져요.</div>`);
+}
+
 /* ---------- 동작 연결 ---------- */
 const rangeBtns = (act, extra='') => `<div class="stages">${Array.from({length:STAGES},(_,i)=>`<button class="btn" data-act="${act}" data-i="${i}">${i*STAGE+1}~${Math.min((i+1)*STAGE,W.length)}번</button>`).join('')}</div><button class="btn y" data-act="${act}" data-i="all" style="text-align:center;margin-top:12px">전체 랜덤${extra}</button>`;
 const acts = {
+  switch(){ nameScreen(); },
+  namego(){ const n = ($('#nm').value||'').trim().replace(/\s+/g,' '); if(!n){ $('#nm').focus(); return; } loginAs(n); },
+  pickuser(d){ loginAs(d.n); },
+  rank(d){ rankScreen(d.t||'all'); },
   home, settings: settingsScreen, list: ()=>listScreen(),
   search: ()=>listScreen($('[data-act=search]').value),
   adv(){
@@ -315,19 +484,19 @@ const acts = {
     if(!ws.length){ screen(`<div class="center" style="padding-top:30px">${duo('h')}<h1>오답 노트가 비었어요</h1><div class="sub">틀린 단어가 생기면 여기에 모여요</div></div><button class="btn" data-act="home" style="text-align:center">홈으로</button>`); return; }
     startQuiz({title:'오답 노트', words:ws, hearts:Infinity, requeue:false, note:true});
   },
-  matchsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>카드 짝 맞추기</b><span></span></div><div class="sub">범위를 고르세요 (6쌍)</div>${rangeBtns('match')}`); },
+  matchsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>카드 짝 맞추기</b><span></span></div><div class="sub">범위를 고르세요 (6쌍)<br>🏆 랭킹에는 <b>전체 랜덤</b>만 기록돼요</div>${rangeBtns('match')}`); },
   match(d){ startMatch(d.i==='all'?'all':+d.i); },
   timesel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>⏱ 타임어택</b><span></span></div><div class="sub">시간 안에 최대한 많이 맞혀 보세요.<br>틀리면 0.7초 쉬어가요(시간은 계속 가요).</div>
     <button class="btn y" data-act="tstart" data-s="30">30초 도전<small>최고 기록 ${tbest[30]||0}개</small></button>
     <button class="btn y" data-act="tstart" data-s="60">1분 도전<small>최고 기록 ${tbest[60]||0}개</small></button>`); },
   tstart(d){ startTime(+d.s); },
   tpick(d){ tpick(+d.i); },
-  fallsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>단어 낙하</b><span></span></div><div class="sub">범위를 고르세요 · 최고 ${best}점</div>${rangeBtns('fall')}<button class="btn" data-act="fall" data-i="notes" style="text-align:center">오답 노트 단어만 (${noteCount()}개)</button>`); },
+  fallsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>단어 낙하</b><span></span></div><div class="sub">범위를 고르세요 · 최고 ${best}점<br>🏆 랭킹에는 <b>전체 랜덤</b>만 기록돼요</div>${rangeBtns('fall')}<button class="btn" data-act="fall" data-i="notes" style="text-align:center">오답 노트 단어만 (${noteCount()}개)</button>`); },
   fall(d){
     let pool;
     if(d.i==='all') pool = W; else if(d.i==='notes') pool = W.filter(w=>notes[w.n]); else pool = W.slice(+d.i*STAGE, +d.i*STAGE+STAGE);
     if(!pool.length) return alert('오답 노트가 비어 있어요');
-    startFall(pool);
+    startFall(pool, d.i==='all');
   },
   flip(d){ flip(+d.i); },
   fpick(d){ if(!F.locked) fallResult(F.opts[+d.i].ok); },
@@ -346,12 +515,13 @@ const acts = {
   },
   nextq: nextQ,
   fail: ()=>endQuiz(false),
-  set(d){ settings[d.k] = d.v==='true' ? true : d.v==='false' ? false : d.v; store.set('settings', settings); settingsScreen(); },
-  reset(){ if(confirm('오답 노트와 별 기록을 모두 지울까요?')){ notes={}; stars={}; best=0; tbest={}; store.set('tbest',tbest); store.set('notes',notes); store.set('stars',stars); store.set('best',0); home(); } }
+  set(d){ settings[d.k] = d.v==='true' ? true : d.v==='false' ? false : d.v; store.set('settings', settings); applySkin(); settingsScreen(); },
+  reset(){ if(confirm(me+' 님의 오답 노트와 기록을 모두 지울까요?')){ notes={}; stars={}; best=0; tbest={}; U.set('tbest',tbest); U.set('notes',notes); U.set('stars',stars); U.set('best',0); tmiss={}; card=null; bestat=0; U.set('tmiss',{}); U.set('card',null); U.set('bestat',0); home(); } }
 };
 app.addEventListener('click', e=>{ const b = e.target.closest('[data-act]'); if(b && b.tagName!=='INPUT') acts[b.dataset.act]?.(b.dataset); });
 app.addEventListener('input', e=>{ if(e.target.dataset.act==='search') acts.search(); });
-home();
+applySkin();
+if(me && users.includes(me)){ loadUser(); home(); } else nameScreen();
 </script>
 </body>
 </html>
