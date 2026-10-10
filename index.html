@@ -22,6 +22,7 @@ h1{font-size:24px;margin:6px 0 2px;text-align:center}
 .hearts{font-size:18px;min-width:70px;text-align:right}
 .arena{display:flex;align-items:flex-end;justify-content:space-between;padding:0 8px}
 .arena svg{width:104px;height:104px}
+.ch{width:100%;height:auto;display:block;mix-blend-mode:multiply}
 .hp{height:12px;border:2.5px solid #222;border-radius:8px;overflow:hidden;margin:4px 8px 10px;background:#fff}
 .hp i{display:block;height:100%;background:#ff7a7a;transition:width .3s}
 .card{border:2.5px solid #222;border-radius:20px;padding:20px 12px;text-align:center;margin:8px 0 12px;background:#fffdf3}
@@ -70,6 +71,7 @@ let settings = Object.assign({dir:'mix', input:'choice', speak:true}, store.get(
 let notes = store.get('notes', {});
 let stars = store.get('stars', {});
 let best = store.get('best', 0);
+let tbest = store.get('tbest', {});
 const STAGE = 10, STAGES = Math.ceil(W.length / STAGE);
 const TYPABLE = /^[\p{Script=Latin}\s]+$/u;
 const shuffle = a => { for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
@@ -77,15 +79,11 @@ const norm = s => s.normalize('NFC').toLowerCase().trim().replace(/\s+/g,' ');
 const strip = s => norm(s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d');
 let raf = 0;
 
-function fairy(mood='n'){
-  const eyes = mood==='h' ? '<path d="M42 62q7-9 14 0M68 62q7-9 14 0" fill="none" stroke="#222" stroke-width="3.5" stroke-linecap="round"/>'
-    : mood==='s' ? '<circle cx="49" cy="62" r="4" fill="#222"/><circle cx="75" cy="62" r="4" fill="#222"/><path d="M49 68q-3 8 0 10" stroke="#5aa9ff" stroke-width="3" fill="none"/>'
-    : '<circle cx="49" cy="62" r="4.5" fill="#222"/><circle cx="75" cy="62" r="4.5" fill="#222"/>';
-  const mouth = mood==='s' ? '<path d="M55 82q7-6 14 0" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>'
-    : mood==='h' ? '<path d="M54 76q8 10 16 0z" fill="#ff8f8f" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>'
-    : '<path d="M56 78q6 6 12 0" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>';
-  return `<svg viewBox="0 0 124 124"><ellipse cx="22" cy="54" rx="16" ry="24" fill="#e6f4ff" stroke="#222" stroke-width="3" transform="rotate(-25 22 54)"/><ellipse cx="102" cy="54" rx="16" ry="24" fill="#e6f4ff" stroke="#222" stroke-width="3" transform="rotate(25 102 54)"/><circle cx="62" cy="70" r="38" fill="#fff3c4" stroke="#222" stroke-width="3.5"/><path d="M62 32q-4-14 6-18q-2 10 8 12" fill="#ffb347" stroke="#222" stroke-width="3" stroke-linejoin="round"/>${eyes}<circle cx="38" cy="74" r="6" fill="#ffb3b3" opacity=".8"/><circle cx="86" cy="74" r="6" fill="#ffb3b3" opacity=".8"/>${mouth}<path d="M92 100l16-22" stroke="#222" stroke-width="4" stroke-linecap="round"/><path d="M108 78l5-8" stroke="#ff6a6a" stroke-width="6" stroke-linecap="round"/></svg>`;
-}
+const MOOD = {h:'h', s:'s', n:'n'};
+function fairy(mood='n'){ return `<img class="ch" src="assets/butdol-${MOOD[mood]||'n'}.webp" alt="붓돌이">`; }
+function eden(mood='n'){ return `<img class="ch" src="assets/eden-${MOOD[mood]||'n'}.webp" alt="이든">`; }
+function duo(mood='n', w=130){ return `<div style="display:flex;justify-content:center;align-items:flex-end;gap:12px"><div style="width:${w}px">${fairy(mood)}</div><div style="width:${Math.round(w*.85)}px">${eden(mood)}</div></div>`; }
+function team(mood='n'){ return `<div style="display:flex;align-items:flex-end;gap:4px"><div style="width:84px">${fairy(mood)}</div><div style="width:64px">${eden(mood)}</div></div>`; }
 function monster(hit){
   return `<svg viewBox="0 0 124 124"><path d="M18 100q-4-52 44-56q48 4 44 56q-26 10-88 0z" fill="${hit?'#ffd0d0':'#d9d2ff'}" stroke="#222" stroke-width="3.5" stroke-linejoin="round"/><path d="M38 66l14 5M86 66l-14 5" stroke="#222" stroke-width="3.5" stroke-linecap="round"/><circle cx="46" cy="76" r="4.5" fill="#222"/><circle cx="78" cy="76" r="4.5" fill="#222"/><path d="M50 92l6-6l6 6l6-6l6 6" fill="none" stroke="#222" stroke-width="3" stroke-linejoin="round"/></svg>`;
 }
@@ -100,10 +98,11 @@ function addNote(it){ notes[it.n] = {streak:0}; store.set('notes', notes); }
 function noteOk(it){ const o = notes[it.n]; if(!o) return; o.streak++; if(o.streak>=2) delete notes[it.n]; store.set('notes', notes); }
 
 function home(){
-  screen(`<div class="center">${fairy('h').replace('<svg','<svg style="width:120px;height:120px"')}</div>
+  screen(`<div style="display:flex;justify-content:center;align-items:flex-end;gap:10px"><img class="ch" style="width:112px" src="assets/butdol-stand.webp" alt="붓돌이"><img class="ch" style="width:84px" src="assets/eden-stand.webp" alt="이든"></div>
   <h1>붓돌이 베트남어 모험</h1><div class="sub">7학년 2학기 단어 ${W.length}개</div>
   <button class="btn y" data-act="adv">🗺 모험 모드<small>10단어씩 7스테이지, 몬스터를 물리치자</small></button>
   <button class="btn" data-act="matchsel">🃏 카드 짝 맞추기<small>눈에 익히는 연습</small></button>
+  <button class="btn" data-act="timesel">⏱ 타임어택<small>30초·1분 동안 몇 개나 맞힐까?</small></button>
   <button class="btn" data-act="fallsel">☄ 단어 낙하<small>떨어지기 전에 뜻을 골라라</small></button>
   <button class="btn" data-act="notesgo">📓 오답 노트 (${noteCount()}개)<small>틀린 단어만 모아 두 번 연속 맞히면 졸업</small></button>
   <div class="row"><button class="btn" data-act="list">📖 단어장</button><button class="btn" data-act="settings">⚙ 설정</button></div>`);
@@ -143,7 +142,7 @@ function quizFrame(){
   const heart = Q.hearts===Infinity ? '' : '❤️'.repeat(Math.max(Q.hearts,0)) + '🤍'.repeat(Math.max(Q.maxHearts-Q.hearts,0));
   const left = Q.total - Q.done;
   return `<div class="top"><button class="ghost" data-act="${Q.back||'home'}">←</button><b>${Q.title}</b><span class="hearts">${heart}</span></div>
-  <div class="arena"><div id="fairy">${fairy('n')}</div><div id="mon">${monster(false)}</div></div>
+  <div class="arena"><div id="fairy">${team('n')}</div><div id="mon">${monster(false)}</div></div>
   <div class="hp"><i style="width:${left/Q.total*100}%"></i></div>`;
 }
 function nextQ(){
@@ -165,7 +164,7 @@ function nextQ(){
 function resolve(ok, msg){
   if(Q.locked) return; Q.locked = true;
   const it = Q.cur, ansText = `${it.vi} (${it.pr}) = ${it.ko}`;
-  $('#fairy').innerHTML = fairy(ok?'h':'s'); $('#fairy').className = ok?'hop':'shake';
+  $('#fairy').innerHTML = team(ok?'h':'s'); $('#fairy').className = ok?'hop':'shake';
   if(ok){
     Q.done++; if(Q.note) noteOk(it);
     $('#mon').innerHTML = monster(true); $('#mon').className = 'shake';
@@ -186,7 +185,7 @@ function endQuiz(win){
   const star = win && !Q.note ? `<div class="stars" style="font-size:34px">${'★'.repeat(s)}${'☆'.repeat(3-s)}</div>` : '';
   const nextBtn = (win && Q.stage!=null && Q.stage+1<STAGES) ? `<button class="btn y" data-act="stage" data-i="${Q.stage+1}" style="text-align:center">다음 스테이지 ▶</button>` : '';
   const again = Q.stage!=null ? `<button class="btn" data-act="stage" data-i="${Q.stage}" style="text-align:center">다시 도전</button>` : '';
-  screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy(win?'h':'s')}</div>
+  screen(`<div class="center" style="padding-top:20px">${duo(win?'h':'s')}
   <h1>${win?(Q.note?'오답 노트 끝!':'몬스터 격파!'):'다음에 다시!'}</h1>${star}
   <div class="sub">틀린 횟수 ${Q.miss}번${noteCount()?` · 오답 노트 ${noteCount()}개`:''}</div></div>${nextBtn}${again}
   <button class="btn" data-act="${Q.back||'home'}" style="text-align:center">${Q.stage!=null?'스테이지 선택':'홈으로'}</button>`);
@@ -212,7 +211,7 @@ function flip(i){
     M.moves++; $('#mv').textContent = M.moves+'번';
     const [a,b] = M.open.map(x=>M.cards[x]); const ea = $('#c'+M.open[0]), eb = $('#c'+M.open[1]);
     if(a.id===b.id && a.k!==b.k){ ea.className = eb.className = 'mc done'; M.found++; M.open = [];
-      if(M.found===6) setTimeout(()=>screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy('h')}</div><h1>모두 맞혔어요!</h1><div class="sub">${M.moves}번 만에 성공</div></div>
+      if(M.found===6) setTimeout(()=>screen(`<div class="center" style="padding-top:20px">${duo('h')}<h1>모두 맞혔어요!</h1><div class="sub">${M.moves}번 만에 성공</div></div>
         <button class="btn y" data-act="match" data-i="${M.si}" style="text-align:center">한 번 더</button><button class="btn" data-act="matchsel" style="text-align:center">다른 범위</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`), 500);
     } else { M.lock = true; ea.classList.add('no'); eb.classList.add('no');
       setTimeout(()=>{ for(const e of [ea,eb]){ e.className='mc'; e.textContent='?'; } M.open=[]; M.lock=false; }, 800); }
@@ -250,8 +249,56 @@ function fallResult(ok, timeout){
   setTimeout(nextFall, ok?400:1300);
 }
 function endFall(){
-  screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy(F.score>=10?'h':'s')}</div><h1>${F.score}점!</h1><div class="sub">최고 기록 ${best}점 · 오답 노트 ${noteCount()}개</div></div>
+  screen(`<div class="center" style="padding-top:20px">${duo(F.score>=10?'h':'s')}<h1>${F.score}점!</h1><div class="sub">최고 기록 ${best}점 · 오답 노트 ${noteCount()}개</div></div>
   <button class="btn y" data-act="fallsel" style="text-align:center">다시 하기</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
+}
+
+/* ---------- 타임어택 ---------- */
+let T = null;
+function startTime(sec){
+  T = {sec, ok:0, miss:0, last:-1, locked:false, over:false};
+  screen(`<div class="top"><button class="ghost" data-act="timesel">←</button><b>⏱ ${sec===60?'1분':sec+'초'} 타임어택</b><span class="hearts" id="ts" style="min-width:90px">0개</span></div>
+  <div class="hp"><i id="tb" style="width:100%;background:#7ac7ff"></i></div><div class="center" id="tt" style="font-weight:800;font-size:22px">${sec}</div>
+  <div class="card" id="tq"></div><div class="opts" id="to"></div>`);
+  T.end = performance.now() + sec*1000;
+  nextT();
+  const loop = now => {
+    if(!$('#tb')) return;
+    const left = Math.max(0, T.end-now);
+    $('#tb').style.width = left/(sec*1000)*100 + '%';
+    $('#tt').textContent = Math.ceil(left/1000);
+    if(left<=0){ endTime(); return; }
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+}
+function nextT(){
+  let it; do { it = W[Math.floor(Math.random()*W.length)]; } while(it.n===T.last);
+  T.last = it.n; T.cur = it; T.locked = false;
+  T.dir = settings.dir==='mix' ? (Math.random()<.5?'vk':'kv') : settings.dir;
+  T.opts = options(it, T.dir);
+  $('#tq').innerHTML = T.dir==='vk'
+    ? `<div class="big">${it.vi}</div><div class="pr">${it.pr}</div>`
+    : `<div class="big">${it.ko}</div>`;
+  $('#to').innerHTML = T.opts.map((o,i)=>`<button class="opt" data-act="tpick" data-i="${i}">${o.t}</button>`).join('');
+}
+function tpick(i){
+  if(T.locked || T.over) return; T.locked = true;
+  const ok = T.opts[i].ok, btns = document.querySelectorAll('#to .opt');
+  btns.forEach((b,j)=>{ if(T.opts[j].ok) b.classList.add('ok'); else if(j===i) b.classList.add('bad'); });
+  if(ok){ T.ok++; $('#ts').textContent = T.ok+'개'; setTimeout(()=>{ if(!T.over) nextT(); }, 200); }
+  else { T.miss++; addNote(T.cur); setTimeout(()=>{ if(!T.over) nextT(); }, 700); }
+}
+function endTime(){
+  T.over = true; cancelAnimationFrame(raf);
+  const prev = tbest[T.sec] || 0, isNew = T.ok > prev;
+  if(isNew){ tbest[T.sec] = T.ok; store.set('tbest', tbest); }
+  screen(`<div class="center" style="padding-top:20px">${duo(T.ok>=10?'h':'n')}
+  <h1>${T.ok}개 맞혔어요!</h1>${isNew&&T.ok>0?'<div class="stars" style="font-size:22px">★ 새 기록! ★</div>':''}
+  <div class="sub">${T.sec===60?'1분':T.sec+'초'} 최고 기록 ${tbest[T.sec]||0}개 · 틀린 문제 ${T.miss}개${T.miss?' (오답 노트에 담았어요)':''}</div></div>
+  <button class="btn y" data-act="tstart" data-s="${T.sec}" style="text-align:center">다시 도전</button>
+  <button class="btn" data-act="timesel" style="text-align:center">시간 다시 고르기</button>
+  <button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
 }
 
 /* ---------- 동작 연결 ---------- */
@@ -265,11 +312,16 @@ const acts = {
   stage(d){ const i = +d.i; startQuiz({title:`스테이지 ${i+1}`, words:W.slice(i*STAGE,i*STAGE+STAGE), hearts:5, requeue:true, stage:i, back:'adv'}); },
   notesgo(){
     const ws = W.filter(w=>notes[w.n]);
-    if(!ws.length){ screen(`<div class="center" style="padding-top:30px"><div style="width:130px;margin:auto">${fairy('h')}</div><h1>오답 노트가 비었어요</h1><div class="sub">틀린 단어가 생기면 여기에 모여요</div></div><button class="btn" data-act="home" style="text-align:center">홈으로</button>`); return; }
+    if(!ws.length){ screen(`<div class="center" style="padding-top:30px">${duo('h')}<h1>오답 노트가 비었어요</h1><div class="sub">틀린 단어가 생기면 여기에 모여요</div></div><button class="btn" data-act="home" style="text-align:center">홈으로</button>`); return; }
     startQuiz({title:'오답 노트', words:ws, hearts:Infinity, requeue:false, note:true});
   },
   matchsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>카드 짝 맞추기</b><span></span></div><div class="sub">범위를 고르세요 (6쌍)</div>${rangeBtns('match')}`); },
   match(d){ startMatch(d.i==='all'?'all':+d.i); },
+  timesel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>⏱ 타임어택</b><span></span></div><div class="sub">시간 안에 최대한 많이 맞혀 보세요.<br>틀리면 0.7초 쉬어가요(시간은 계속 가요).</div>
+    <button class="btn y" data-act="tstart" data-s="30">30초 도전<small>최고 기록 ${tbest[30]||0}개</small></button>
+    <button class="btn y" data-act="tstart" data-s="60">1분 도전<small>최고 기록 ${tbest[60]||0}개</small></button>`); },
+  tstart(d){ startTime(+d.s); },
+  tpick(d){ tpick(+d.i); },
   fallsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>단어 낙하</b><span></span></div><div class="sub">범위를 고르세요 · 최고 ${best}점</div>${rangeBtns('fall')}<button class="btn" data-act="fall" data-i="notes" style="text-align:center">오답 노트 단어만 (${noteCount()}개)</button>`); },
   fall(d){
     let pool;
@@ -295,7 +347,7 @@ const acts = {
   nextq: nextQ,
   fail: ()=>endQuiz(false),
   set(d){ settings[d.k] = d.v==='true' ? true : d.v==='false' ? false : d.v; store.set('settings', settings); settingsScreen(); },
-  reset(){ if(confirm('오답 노트와 별 기록을 모두 지울까요?')){ notes={}; stars={}; best=0; store.set('notes',notes); store.set('stars',stars); store.set('best',0); home(); } }
+  reset(){ if(confirm('오답 노트와 별 기록을 모두 지울까요?')){ notes={}; stars={}; best=0; tbest={}; store.set('tbest',tbest); store.set('notes',notes); store.set('stars',stars); store.set('best',0); home(); } }
 };
 app.addEventListener('click', e=>{ const b = e.target.closest('[data-act]'); if(b && b.tagName!=='INPUT') acts[b.dataset.act]?.(b.dataset); });
 app.addEventListener('input', e=>{ if(e.target.dataset.act==='search') acts.search(); });
