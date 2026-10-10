@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="붓돌이 베트남어">
+<title>붓돌이 베트남어 모험</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#fff;color:#222;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;display:flex;justify-content:center}
+#app{width:100%;max-width:480px;min-height:100vh;padding:14px 16px 28px}
+h1{font-size:24px;margin:6px 0 2px;text-align:center}
+.sub{text-align:center;color:#888;font-size:14px;margin-bottom:10px}
+.btn{display:block;width:100%;border:2.5px solid #222;background:#fff;border-radius:16px;padding:14px;font-size:18px;font-weight:700;margin:10px 0;cursor:pointer;text-align:left;color:#222}
+.btn small{display:block;font-weight:400;font-size:13px;color:#888;margin-top:2px}
+.btn:active{transform:translateY(2px);background:#fff6d6}
+.btn.y{background:#ffe27a}
+.ghost{border:none;background:none;font-size:22px;cursor:pointer;padding:4px 8px;color:#222}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.top b{font-size:17px}
+.hearts{font-size:18px;min-width:70px;text-align:right}
+.arena{display:flex;align-items:flex-end;justify-content:space-between;padding:0 8px}
+.arena svg{width:104px;height:104px}
+.hp{height:12px;border:2.5px solid #222;border-radius:8px;overflow:hidden;margin:4px 8px 10px;background:#fff}
+.hp i{display:block;height:100%;background:#ff7a7a;transition:width .3s}
+.card{border:2.5px solid #222;border-radius:20px;padding:20px 12px;text-align:center;margin:8px 0 12px;background:#fffdf3}
+.card .big{font-size:32px;font-weight:800;line-height:1.25;word-break:keep-all}
+.card .pr{font-size:15px;color:#888;margin-top:6px}
+.card .tag{font-size:12px;color:#aaa;margin-bottom:6px}
+.spk{border:2px solid #222;background:#fff;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer;margin-top:8px}
+.opts{display:grid;gap:10px}
+.opt{border:2.5px solid #222;background:#fff;border-radius:14px;padding:14px 10px;font-size:18px;font-weight:600;cursor:pointer;color:#222;word-break:keep-all}
+.opt:active{background:#fff6d6}
+.opt.ok{background:#b8f0c8}.opt.bad{background:#ffc4c4}
+input.txt{width:100%;border:2.5px solid #222;border-radius:14px;padding:14px;font-size:20px;text-align:center;outline:none}
+#fb{min-height:64px;margin-top:12px;text-align:center;font-size:17px;font-weight:700}
+#fb .a{font-weight:400;font-size:15px;color:#555;margin-top:2px}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.hop{animation:hop .4s}
+@keyframes hop{40%{transform:translateY(-14px)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.mc{border:2.5px solid #222;border-radius:12px;min-height:74px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:15px;padding:4px;cursor:pointer;background:#ffe27a;user-select:none;word-break:keep-all}
+.mc.open{background:#fff}.mc.done{background:#b8f0c8;opacity:.6}.mc.no{background:#ffc4c4}
+.stages{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stages .btn{text-align:center;margin:0}
+.stars{letter-spacing:2px;color:#f2a900}
+.fall{position:relative;height:300px;border:2.5px solid #222;border-radius:16px;overflow:hidden;margin:8px 0 12px;background:#f7fbff}
+.fall .w{position:absolute;left:0;right:0;text-align:center;font-size:28px;font-weight:800}
+.fall .w small{display:block;font-size:13px;color:#888;font-weight:400}
+.fall .ground{position:absolute;bottom:0;left:0;right:0;height:8px;background:#222}
+.row{display:flex;gap:8px;margin:10px 0}.row .btn{margin:0;text-align:center;font-size:16px}
+.seg{display:flex;gap:6px;margin:6px 0 14px}.seg button{flex:1;border:2.5px solid #222;background:#fff;border-radius:12px;padding:10px 4px;font-size:15px;font-weight:700;cursor:pointer;color:#222}
+.seg button.on{background:#ffe27a}
+table{width:100%;border-collapse:collapse;font-size:14px}td{border-bottom:1px solid #eee;padding:7px 4px}td:first-child{color:#aaa;width:28px}
+.center{text-align:center}
+</style>
+</head>
+<body><div id="app"></div>
+<script>
+const W = [{"n": 1, "vi": "đang", "pr": "당", "ko": "~중이다"}, {"n": 2, "vi": "bây giờ", "pr": "버이 저", "ko": "지금"}, {"n": 3, "vi": "vậy", "pr": "버이", "ko": "그렇게, 그러하다"}, {"n": 4, "vi": "khó", "pr": "커", "ko": "어렵다"}, {"n": 5, "vi": "dễ", "pr": "제", "ko": "쉽다"}, {"n": 6, "vi": "ở đâu", "pr": "어 더우", "ko": "어디에"}, {"n": 7, "vi": "gặp", "pr": "갑", "ko": "만나다"}, {"n": 8, "vi": "ai", "pr": "아이", "ko": "누구"}, {"n": 9, "vi": "cà phê", "pr": "까 페", "ko": "커피"}, {"n": 10, "vi": "trà sữa", "pr": "짜 쓰어", "ko": "밀크티"}, {"n": 11, "vi": "gần", "pr": "건", "ko": "가까운, 가깝다"}, {"n": 12, "vi": "ngon", "pr": "응온", "ko": "맛있다"}, {"n": 13, "vi": "...có...không?", "pr": "...꼬...콩?", "ko": "~ 있나요?, ~하나요?"}, {"n": 14, "vi": "lên mạng", "pr": "렌 망", "ko": "인터넷을 하다"}, {"n": 15, "vi": "ăn cơm", "pr": "안 껌", "ko": "밥을 먹다"}, {"n": 16, "vi": "nghe nhạc", "pr": "응에 냑", "ko": "음악을 듣다"}, {"n": 17, "vi": "xem ti vi", "pr": "쎔 띠 비", "ko": "티비를 보다"}, {"n": 18, "vi": "đi dạo", "pr": "디 야오", "ko": "산책하다"}, {"n": 19, "vi": "đọc sách", "pr": "독 삭", "ko": "책을 읽다"}, {"n": 20, "vi": "đi học thêm", "pr": "디 혹 템", "ko": "학원가다"}, {"n": 21, "vi": "trung tâm", "pr": "쭝 떰", "ko": "학원, 센터"}, {"n": 22, "vi": "làm thêm", "pr": "람 템", "ko": "아르바이트하다"}, {"n": 23, "vi": "quán cà phê", "pr": "꽌 까 페", "ko": "카페"}, {"n": 24, "vi": "tiệm cà phê", "pr": "띠엠 까 페", "ko": "카페"}, {"n": 25, "vi": "căn tin", "pr": "깐 띤", "ko": "매점"}, {"n": 26, "vi": "nóng", "pr": "농", "ko": "더운, 뜨거운"}, {"n": 27, "vi": "đá", "pr": "다", "ko": "얼음, iced"}, {"n": 28, "vi": "tập thể dục", "pr": "떱 테 죽", "ko": "운동하다"}, {"n": 29, "vi": "thú vị", "pr": "투 비", "ko": "재미있다"}, {"n": 30, "vi": "(bộ) phim", "pr": "보 핌", "ko": "(분류사) 영화"}, {"n": 31, "vi": "thông minh", "pr": "통 민", "ko": "똑똑하다"}, {"n": 32, "vi": "công viên", "pr": "꽁 비엔", "ko": "공원"}, {"n": 33, "vi": "bảo tàng", "pr": "바오 땅", "ko": "박물관"}, {"n": 34, "vi": "trạm xe buýt", "pr": "짬 쎄 부잇", "ko": "버스정류장"}, {"n": 35, "vi": "ga", "pr": "가", "ko": "역(station)"}, {"n": 36, "vi": "sân bay", "pr": "선 바이", "ko": "공항"}, {"n": 37, "vi": "làm bài tập", "pr": "람 바이 떱", "ko": "숙제하다"}, {"n": 38, "vi": "du lịch", "pr": "주 릭", "ko": "여행하다"}, {"n": 39, "vi": "nghỉ", "pr": "응이", "ko": "쉬다"}, {"n": 40, "vi": "chờ", "pr": "쩌", "ko": "기다리다"}, {"n": 41, "vi": "thư viện", "pr": "트 비엔", "ko": "도서관"}, {"n": 42, "vi": "sinh nhật", "pr": "신 녓", "ko": "생일"}, {"n": 43, "vi": "phải + 동사", "pr": "파이 + 동사", "ko": "~해야 한다"}, {"n": 44, "vi": "siêu thị", "pr": "씨에우 티", "ko": "마트"}, {"n": 45, "vi": "Hẹn gặp lại!", "pr": "헨 갑 라이", "ko": "또 만나요!"}, {"n": 46, "vi": "công ty", "pr": "꽁 띠", "ko": "회사"}, {"n": 47, "vi": "đến", "pr": "덴", "ko": "~까지, 가다, 도착하다"}, {"n": 48, "vi": "~được không?", "pr": "드억 콩?", "ko": "~할 수 있어요?"}, {"n": 49, "vi": "chạy xe máy", "pr": "짜이 쎄 마이", "ko": "오토바이를 운전하다"}, {"n": 50, "vi": "hát", "pr": "핫", "ko": "노래하다"}, {"n": 51, "vi": "ra ngoài", "pr": "라 응와이", "ko": "밖에 나가다"}, {"n": 52, "vi": "về nhà", "pr": "베 냐", "ko": "집에 가다"}, {"n": 53, "vi": "nhưng", "pr": "능", "ko": "그러나"}, {"n": 54, "vi": "hơi + 형용사", "pr": "허이 + 형용사", "ko": "약간 ~하다"}, {"n": 55, "vi": "mắc", "pr": "막", "ko": "비싸다"}, {"n": 56, "vi": "chơi game", "pr": "쩌이 게임", "ko": "게임하다"}, {"n": 57, "vi": "quê", "pr": "꾸에", "ko": "고향"}, {"n": 58, "vi": "nấu cơm", "pr": "너우 껌", "ko": "밥을 하다, 요리하다"}, {"n": 59, "vi": "để + 동사", "pr": "데 + 동사", "ko": "~하기 위해서, ~하려고"}, {"n": 60, "vi": "chợ", "pr": "쩌", "ko": "시장"}, {"n": 61, "vi": "đón", "pr": "돈", "ko": "마중하다"}, {"n": 62, "vi": "đi bộ", "pr": "디 보", "ko": "걷다"}, {"n": 63, "vi": "chạy bộ", "pr": "짜이 보", "ko": "뛰다"}, {"n": 64, "vi": "sau đó", "pr": "싸우 도", "ko": "그 다음에"}, {"n": 65, "vi": "sáng", "pr": "쌍", "ko": "밝다, 아침"}, {"n": 66, "vi": "bằng + 탈것/수단", "pr": "방 + 탈것/수단", "ko": "~로"}, {"n": 67, "vi": "hỏi", "pr": "호이", "ko": "물어보다"}, {"n": 68, "vi": "bao nhiêu tuổi?", "pr": "바오 니에우 뚜오이?", "ko": "몇 살이야?"}, {"n": 69, "vi": "trả lời", "pr": "짜 러이", "ko": "대답하다"}, {"n": 70, "vi": "...là... / rằng...", "pr": "...라... / 랑...", "ko": "~라고"}];
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const store = {
+  get(k, d){ try{ const v = JSON.parse(localStorage.getItem('vg_'+k)); return v==null?d:v; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('vg_'+k, JSON.stringify(v)); }catch(e){} }
+};
+let settings = Object.assign({dir:'mix', input:'choice', speak:true}, store.get('settings', {}));
+let notes = store.get('notes', {});
+let stars = store.get('stars', {});
+let best = store.get('best', 0);
+const STAGE = 10, STAGES = Math.ceil(W.length / STAGE);
+const TYPABLE = /^[\p{Script=Latin}\s]+$/u;
+const shuffle = a => { for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const norm = s => s.normalize('NFC').toLowerCase().trim().replace(/\s+/g,' ');
+const strip = s => norm(s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d');
+let raf = 0;
+
+function fairy(mood='n'){
+  const eyes = mood==='h' ? '<path d="M42 62q7-9 14 0M68 62q7-9 14 0" fill="none" stroke="#222" stroke-width="3.5" stroke-linecap="round"/>'
+    : mood==='s' ? '<circle cx="49" cy="62" r="4" fill="#222"/><circle cx="75" cy="62" r="4" fill="#222"/><path d="M49 68q-3 8 0 10" stroke="#5aa9ff" stroke-width="3" fill="none"/>'
+    : '<circle cx="49" cy="62" r="4.5" fill="#222"/><circle cx="75" cy="62" r="4.5" fill="#222"/>';
+  const mouth = mood==='s' ? '<path d="M55 82q7-6 14 0" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>'
+    : mood==='h' ? '<path d="M54 76q8 10 16 0z" fill="#ff8f8f" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>'
+    : '<path d="M56 78q6 6 12 0" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>';
+  return `<svg viewBox="0 0 124 124"><ellipse cx="22" cy="54" rx="16" ry="24" fill="#e6f4ff" stroke="#222" stroke-width="3" transform="rotate(-25 22 54)"/><ellipse cx="102" cy="54" rx="16" ry="24" fill="#e6f4ff" stroke="#222" stroke-width="3" transform="rotate(25 102 54)"/><circle cx="62" cy="70" r="38" fill="#fff3c4" stroke="#222" stroke-width="3.5"/><path d="M62 32q-4-14 6-18q-2 10 8 12" fill="#ffb347" stroke="#222" stroke-width="3" stroke-linejoin="round"/>${eyes}<circle cx="38" cy="74" r="6" fill="#ffb3b3" opacity=".8"/><circle cx="86" cy="74" r="6" fill="#ffb3b3" opacity=".8"/>${mouth}<path d="M92 100l16-22" stroke="#222" stroke-width="4" stroke-linecap="round"/><path d="M108 78l5-8" stroke="#ff6a6a" stroke-width="6" stroke-linecap="round"/></svg>`;
+}
+function monster(hit){
+  return `<svg viewBox="0 0 124 124"><path d="M18 100q-4-52 44-56q48 4 44 56q-26 10-88 0z" fill="${hit?'#ffd0d0':'#d9d2ff'}" stroke="#222" stroke-width="3.5" stroke-linejoin="round"/><path d="M38 66l14 5M86 66l-14 5" stroke="#222" stroke-width="3.5" stroke-linecap="round"/><circle cx="46" cy="76" r="4.5" fill="#222"/><circle cx="78" cy="76" r="4.5" fill="#222"/><path d="M50 92l6-6l6 6l6-6l6 6" fill="none" stroke="#222" stroke-width="3" stroke-linejoin="round"/></svg>`;
+}
+
+function speak(t){
+  if(!settings.speak || !window.speechSynthesis) return;
+  try{ speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[.+~()!?]/g,' ')); u.lang='vi-VN'; u.rate=.85; speechSynthesis.speak(u); }catch(e){}
+}
+function screen(html){ cancelAnimationFrame(raf); app.innerHTML = html; window.scrollTo(0,0); }
+const noteCount = () => Object.keys(notes).length;
+function addNote(it){ notes[it.n] = {streak:0}; store.set('notes', notes); }
+function noteOk(it){ const o = notes[it.n]; if(!o) return; o.streak++; if(o.streak>=2) delete notes[it.n]; store.set('notes', notes); }
+
+function home(){
+  screen(`<div class="center">${fairy('h').replace('<svg','<svg style="width:120px;height:120px"')}</div>
+  <h1>붓돌이 베트남어 모험</h1><div class="sub">7학년 2학기 단어 ${W.length}개</div>
+  <button class="btn y" data-act="adv">🗺 모험 모드<small>10단어씩 7스테이지, 몬스터를 물리치자</small></button>
+  <button class="btn" data-act="matchsel">🃏 카드 짝 맞추기<small>눈에 익히는 연습</small></button>
+  <button class="btn" data-act="fallsel">☄ 단어 낙하<small>떨어지기 전에 뜻을 골라라</small></button>
+  <button class="btn" data-act="notesgo">📓 오답 노트 (${noteCount()}개)<small>틀린 단어만 모아 두 번 연속 맞히면 졸업</small></button>
+  <div class="row"><button class="btn" data-act="list">📖 단어장</button><button class="btn" data-act="settings">⚙ 설정</button></div>`);
+}
+function settingsScreen(){
+  const seg = (key, arr) => `<div class="seg">${arr.map(([v,l])=>`<button class="${settings[key]===v?'on':''}" data-act="set" data-k="${key}" data-v="${v}">${l}</button>`).join('')}</div>`;
+  screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>설정</b><span></span></div>
+  <b>문제 방향</b>${seg('dir',[['vk','베트남어→뜻'],['kv','뜻→베트남어'],['mix','섞기']])}
+  <b>답하는 방식</b>${seg('input',[['choice','보기 고르기'],['type','직접 입력']])}
+  <div class="sub" style="text-align:left">직접 입력은 '뜻→베트남어' 문제에서만 적용돼요. 성조를 빼먹으면 정답으로 인정하되 알려줘요.</div>
+  <b>소리 읽어주기</b>${seg('speak',[[true,'켜기'],[false,'끄기']])}
+  <button class="btn" data-act="reset">기록 지우기<small>오답 노트와 별 기록을 초기화</small></button>`);
+}
+function listScreen(q=''){
+  const rows = W.filter(w=>!q||strip(w.vi).includes(strip(q))||w.ko.includes(q)||w.pr.includes(q));
+  const t = rows.map(w=>`<tr><td>${w.n}</td><td><b>${w.vi}</b><br><span style="color:#888">${w.pr}</span></td><td>${w.ko}</td></tr>`).join('');
+  if(q===''||!$('#lt')){
+    screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>단어장</b><span></span></div>
+    <input class="txt" data-act="search" placeholder="검색 (베트남어/뜻/발음)" style="font-size:16px;margin-bottom:8px"><table id="lt">${t}</table>`);
+  } else $('#lt').innerHTML = t;
+}
+
+/* ---------- 퀴즈 ---------- */
+let Q = null;
+function startQuiz(o){
+  Q = Object.assign({queue:shuffle(o.words.slice()), total:o.words.length, done:0, miss:0, locked:false}, o);
+  Q.maxHearts = o.hearts; Q.hearts = o.hearts;
+  nextQ();
+}
+function options(it, dir){
+  const text = w => dir==='vk' ? w.ko : w.vi;
+  const seen = new Set([text(it)]); const out = [];
+  for(const w of shuffle(W.slice())){ if(w.ko===it.ko||seen.has(text(w))) continue; seen.add(text(w)); out.push(w); if(out.length===3) break; }
+  out.push(it); return shuffle(out).map(w=>({t:text(w), ok:w.ko===it.ko}));
+}
+function quizFrame(){
+  const heart = Q.hearts===Infinity ? '' : '❤️'.repeat(Math.max(Q.hearts,0)) + '🤍'.repeat(Math.max(Q.maxHearts-Q.hearts,0));
+  const left = Q.total - Q.done;
+  return `<div class="top"><button class="ghost" data-act="${Q.back||'home'}">←</button><b>${Q.title}</b><span class="hearts">${heart}</span></div>
+  <div class="arena"><div id="fairy">${fairy('n')}</div><div id="mon">${monster(false)}</div></div>
+  <div class="hp"><i style="width:${left/Q.total*100}%"></i></div>`;
+}
+function nextQ(){
+  if(!Q.queue.length) return endQuiz(true);
+  const it = Q.cur = Q.queue.shift();
+  const dir = Q.dir = settings.dir==='mix' ? (Math.random()<.5?'vk':'kv') : settings.dir;
+  Q.typing = settings.input==='type' && dir==='kv' && TYPABLE.test(it.vi);
+  Q.locked = false;
+  const prompt = dir==='vk'
+    ? `<div class="tag">뜻은?</div><div class="big">${it.vi}</div><div class="pr">${it.pr}</div><button class="spk" data-act="say">🔊</button>`
+    : `<div class="tag">베트남어로?</div><div class="big">${it.ko}</div>`;
+  let ans;
+  if(Q.typing) ans = `<input class="txt" id="ti" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="여기에 입력"><button class="btn y" data-act="submit" style="text-align:center;margin-top:10px">확인</button>`;
+  else { Q.opts = options(it, dir); ans = `<div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-act="pick" data-i="${i}">${o.t}</button>`).join('')}</div>`; }
+  screen(quizFrame() + `<div class="card">${prompt}</div>${ans}<div id="fb"></div>`);
+  if(dir==='vk') speak(it.vi);
+  if(Q.typing){ const ti = $('#ti'); ti.focus(); ti.addEventListener('keydown', e=>{ if(e.key==='Enter') acts.submit(); }); }
+}
+function resolve(ok, msg){
+  if(Q.locked) return; Q.locked = true;
+  const it = Q.cur, ansText = `${it.vi} (${it.pr}) = ${it.ko}`;
+  $('#fairy').innerHTML = fairy(ok?'h':'s'); $('#fairy').className = ok?'hop':'shake';
+  if(ok){
+    Q.done++; if(Q.note) noteOk(it);
+    $('#mon').innerHTML = monster(true); $('#mon').className = 'shake';
+    $('.hp i').style.width = (Q.total-Q.done)/Q.total*100 + '%';
+    $('#fb').innerHTML = `<div style="color:#1c8a45">정답! ${msg||''}</div><div class="a">${ansText}</div>`;
+    setTimeout(nextQ, 1000);
+  } else {
+    addNote(it); Q.miss++;
+    if(Q.hearts!==Infinity) Q.hearts--;
+    if(Q.requeue) Q.queue.push(it); else Q.done++;
+    $('.hearts').textContent = Q.hearts===Infinity ? '' : '❤️'.repeat(Math.max(Q.hearts,0)) + '🤍'.repeat(Q.maxHearts-Math.max(Q.hearts,0));
+    $('#fb').innerHTML = `<div style="color:#d33">아쉬워요!</div><div class="a">정답: ${ansText}</div><button class="btn y" data-act="${Q.hearts<=0?'fail':'nextq'}" style="text-align:center;margin-top:8px">${Q.hearts<=0?'결과 보기':'다음'}</button>`;
+  }
+}
+function endQuiz(win){
+  const s = !win ? 0 : Q.miss===0 ? 3 : Q.miss<=2 ? 2 : 1;
+  if(Q.stage!=null && win){ stars[Q.stage] = Math.max(stars[Q.stage]||0, s); store.set('stars', stars); }
+  const star = win && !Q.note ? `<div class="stars" style="font-size:34px">${'★'.repeat(s)}${'☆'.repeat(3-s)}</div>` : '';
+  const nextBtn = (win && Q.stage!=null && Q.stage+1<STAGES) ? `<button class="btn y" data-act="stage" data-i="${Q.stage+1}" style="text-align:center">다음 스테이지 ▶</button>` : '';
+  const again = Q.stage!=null ? `<button class="btn" data-act="stage" data-i="${Q.stage}" style="text-align:center">다시 도전</button>` : '';
+  screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy(win?'h':'s')}</div>
+  <h1>${win?(Q.note?'오답 노트 끝!':'몬스터 격파!'):'다음에 다시!'}</h1>${star}
+  <div class="sub">틀린 횟수 ${Q.miss}번${noteCount()?` · 오답 노트 ${noteCount()}개`:''}</div></div>${nextBtn}${again}
+  <button class="btn" data-act="${Q.back||'home'}" style="text-align:center">${Q.stage!=null?'스테이지 선택':'홈으로'}</button>`);
+}
+
+/* ---------- 카드 짝 맞추기 ---------- */
+let M = null;
+function startMatch(si){
+  const pool = si==='all' ? W : W.slice(si*STAGE, si*STAGE+STAGE);
+  const pick = shuffle(pool.slice()).slice(0,6);
+  const cards = shuffle(pick.flatMap(w=>[{id:w.n,t:w.vi,k:'v'},{id:w.n,t:w.ko,k:'k'}]));
+  M = {cards, open:[], found:0, moves:0, lock:false, si};
+  screen(`<div class="top"><button class="ghost" data-act="matchsel">←</button><b>카드 짝 맞추기</b><span id="mv">0번</span></div>
+  <div class="sub">베트남어 카드와 뜻 카드를 짝지으세요</div>
+  <div class="grid">${cards.map((c,i)=>`<div class="mc" data-act="flip" data-i="${i}" id="c${i}">?</div>`).join('')}</div>`);
+}
+function flip(i){
+  if(M.lock) return; const c = M.cards[i], el = $('#c'+i);
+  if(el.classList.contains('open')||el.classList.contains('done')) return;
+  el.classList.add('open'); el.textContent = c.t; if(c.k==='v') speak(c.t);
+  M.open.push(i);
+  if(M.open.length===2){
+    M.moves++; $('#mv').textContent = M.moves+'번';
+    const [a,b] = M.open.map(x=>M.cards[x]); const ea = $('#c'+M.open[0]), eb = $('#c'+M.open[1]);
+    if(a.id===b.id && a.k!==b.k){ ea.className = eb.className = 'mc done'; M.found++; M.open = [];
+      if(M.found===6) setTimeout(()=>screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy('h')}</div><h1>모두 맞혔어요!</h1><div class="sub">${M.moves}번 만에 성공</div></div>
+        <button class="btn y" data-act="match" data-i="${M.si}" style="text-align:center">한 번 더</button><button class="btn" data-act="matchsel" style="text-align:center">다른 범위</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`), 500);
+    } else { M.lock = true; ea.classList.add('no'); eb.classList.add('no');
+      setTimeout(()=>{ for(const e of [ea,eb]){ e.className='mc'; e.textContent='?'; } M.open=[]; M.lock=false; }, 800); }
+  }
+}
+
+/* ---------- 단어 낙하 ---------- */
+let F = null;
+function startFall(pool){
+  F = {pool, score:0, lives:3, last:-1, over:false};
+  screen(`<div class="top"><button class="ghost" data-act="fallsel">←</button><b>단어 낙하</b><span class="hearts" id="fl"></span></div>
+  <div class="sub" id="fs"></div><div class="fall"><div class="w" id="fw"></div><div class="ground"></div></div><div class="opts" id="fo"></div>`);
+  nextFall();
+}
+function nextFall(){
+  if(F.lives<=0) return endFall();
+  let it; do { it = F.pool[Math.floor(Math.random()*F.pool.length)]; } while(F.pool.length>1 && it.n===F.last);
+  F.last = it.n; F.cur = it; F.locked = false; F.dur = Math.max(3.5, 8 - F.score*0.25)*1000; F.t0 = 0;
+  F.opts = options(it,'vk');
+  $('#fl').textContent = '❤️'.repeat(F.lives) + '🤍'.repeat(3-F.lives);
+  $('#fs').textContent = `점수 ${F.score} · 최고 ${best}`;
+  $('#fw').innerHTML = `${it.vi}<small>${it.pr}</small>`;
+  $('#fo').innerHTML = F.opts.map((o,i)=>`<button class="opt" data-act="fpick" data-i="${i}">${o.t}</button>`).join('');
+  speak(it.vi);
+  const loop = ts => { if(!F.t0) F.t0 = ts; const p = (ts-F.t0)/F.dur; const el = $('#fw'); if(!el) return;
+    el.style.top = (p*(300-70)) + 'px';
+    if(p>=1 && !F.locked){ fallResult(false, true); return; }
+    raf = requestAnimationFrame(loop); };
+  raf = requestAnimationFrame(loop);
+}
+function fallResult(ok, timeout){
+  if(F.locked) return; F.locked = true; cancelAnimationFrame(raf);
+  if(ok){ F.score++; if(F.score>best){ best = F.score; store.set('best', best); } $('#fw').style.color = '#1c8a45'; }
+  else { F.lives--; addNote(F.cur); $('#fw').style.color = '#d33'; $('#fw').innerHTML = `${F.cur.vi}<small>${F.cur.ko}</small>`; }
+  setTimeout(nextFall, ok?400:1300);
+}
+function endFall(){
+  screen(`<div class="center" style="padding-top:20px"><div style="width:140px;margin:auto">${fairy(F.score>=10?'h':'s')}</div><h1>${F.score}점!</h1><div class="sub">최고 기록 ${best}점 · 오답 노트 ${noteCount()}개</div></div>
+  <button class="btn y" data-act="fallsel" style="text-align:center">다시 하기</button><button class="btn" data-act="home" style="text-align:center">홈으로</button>`);
+}
+
+/* ---------- 동작 연결 ---------- */
+const rangeBtns = (act, extra='') => `<div class="stages">${Array.from({length:STAGES},(_,i)=>`<button class="btn" data-act="${act}" data-i="${i}">${i*STAGE+1}~${Math.min((i+1)*STAGE,W.length)}번</button>`).join('')}</div><button class="btn y" data-act="${act}" data-i="all" style="text-align:center;margin-top:12px">전체 랜덤${extra}</button>`;
+const acts = {
+  home, settings: settingsScreen, list: ()=>listScreen(),
+  search: ()=>listScreen($('[data-act=search]').value),
+  adv(){
+    screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>모험 지도</b><span></span></div><div class="stages">${Array.from({length:STAGES},(_,i)=>`<button class="btn" data-act="stage" data-i="${i}"><div>스테이지 ${i+1}</div><div class="stars">${'★'.repeat(stars[i]||0)}${'☆'.repeat(3-(stars[i]||0))}</div><small>${i*STAGE+1}~${Math.min((i+1)*STAGE,W.length)}번</small></button>`).join('')}</div>`);
+  },
+  stage(d){ const i = +d.i; startQuiz({title:`스테이지 ${i+1}`, words:W.slice(i*STAGE,i*STAGE+STAGE), hearts:5, requeue:true, stage:i, back:'adv'}); },
+  notesgo(){
+    const ws = W.filter(w=>notes[w.n]);
+    if(!ws.length){ screen(`<div class="center" style="padding-top:30px"><div style="width:130px;margin:auto">${fairy('h')}</div><h1>오답 노트가 비었어요</h1><div class="sub">틀린 단어가 생기면 여기에 모여요</div></div><button class="btn" data-act="home" style="text-align:center">홈으로</button>`); return; }
+    startQuiz({title:'오답 노트', words:ws, hearts:Infinity, requeue:false, note:true});
+  },
+  matchsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>카드 짝 맞추기</b><span></span></div><div class="sub">범위를 고르세요 (6쌍)</div>${rangeBtns('match')}`); },
+  match(d){ startMatch(d.i==='all'?'all':+d.i); },
+  fallsel(){ screen(`<div class="top"><button class="ghost" data-act="home">←</button><b>단어 낙하</b><span></span></div><div class="sub">범위를 고르세요 · 최고 ${best}점</div>${rangeBtns('fall')}<button class="btn" data-act="fall" data-i="notes" style="text-align:center">오답 노트 단어만 (${noteCount()}개)</button>`); },
+  fall(d){
+    let pool;
+    if(d.i==='all') pool = W; else if(d.i==='notes') pool = W.filter(w=>notes[w.n]); else pool = W.slice(+d.i*STAGE, +d.i*STAGE+STAGE);
+    if(!pool.length) return alert('오답 노트가 비어 있어요');
+    startFall(pool);
+  },
+  flip(d){ flip(+d.i); },
+  fpick(d){ if(!F.locked) fallResult(F.opts[+d.i].ok); },
+  say(){ speak(Q.cur.vi); },
+  pick(d){
+    if(Q.locked) return; const i = +d.i, btns = document.querySelectorAll('.opt');
+    btns.forEach((b,j)=>{ if(Q.opts[j].ok) b.classList.add('ok'); else if(j===i) b.classList.add('bad'); });
+    resolve(Q.opts[i].ok);
+  },
+  submit(){
+    if(Q.locked) return; const v = $('#ti').value; if(!v.trim()) return;
+    const same = W.filter(w=>w.ko===Q.cur.ko);
+    if(same.some(w=>norm(w.vi)===norm(v))) return resolve(true);
+    if(same.some(w=>strip(w.vi)===strip(v))) return resolve(true, '(성조·기호를 다시 확인해요)');
+    resolve(false);
+  },
+  nextq: nextQ,
+  fail: ()=>endQuiz(false),
+  set(d){ settings[d.k] = d.v==='true' ? true : d.v==='false' ? false : d.v; store.set('settings', settings); settingsScreen(); },
+  reset(){ if(confirm('오답 노트와 별 기록을 모두 지울까요?')){ notes={}; stars={}; best=0; store.set('notes',notes); store.set('stars',stars); store.set('best',0); home(); } }
+};
+app.addEventListener('click', e=>{ const b = e.target.closest('[data-act]'); if(b && b.tagName!=='INPUT') acts[b.dataset.act]?.(b.dataset); });
+app.addEventListener('input', e=>{ if(e.target.dataset.act==='search') acts.search(); });
+home();
+</script>
+</body>
+</html>
